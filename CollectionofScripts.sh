@@ -17,3 +17,7 @@ For a huge tree, it might be hard for sort to keep everything in memory.
 Edit: Just as -printf is probably GNU-only, ajreals usage of stat -c is too. Although it is possible to do the same on BSD, the options for formatting is different (-f "%m %N" it would seem)
 
 And I missed the part of plural; if you want more then the latest file, just bump up the tail argument. -->
+
+#Match exact pattern and grep the latest modified file.
+
+find . -type f -printf '%T@ %p\n' | sort -n | grep ".deb$" | cut -f2- -d" " | tail -1
