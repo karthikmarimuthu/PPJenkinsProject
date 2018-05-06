@@ -7,3 +7,13 @@ fi
 # Find all files older than one day and delete
 
 find /tmp/auto/ -mtime +1 -exec rm -f {} \;
+
+# Find the latest modified file from a directory
+<-- find . -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" "
+For a huge tree, it might be hard for sort to keep everything in memory.
+
+%T@ gives you the modification time like a unix timestamp, sort -n sorts numerically, tail -1 takes the last line (highest timestamp), cut -f2 -d" " cuts away the first field (the timestamp) from the output.
+
+Edit: Just as -printf is probably GNU-only, ajreals usage of stat -c is too. Although it is possible to do the same on BSD, the options for formatting is different (-f "%m %N" it would seem)
+
+And I missed the part of plural; if you want more then the latest file, just bump up the tail argument. -->
