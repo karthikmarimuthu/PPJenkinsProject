@@ -1,4 +1,5 @@
 #!/bin/bash
+#pass parameters from other job to the build job
 BUILD_NU=$(echo $BUILD_NUMBER)
 REL=$(for i in $(grep '<version>' pom.xml); do ver=${i%<*}; ver=${ver#*>}; echo "$ver"; done | head -1)
 TVER=$REL.$BUILD_NU
@@ -17,7 +18,7 @@ if echo "$VERSION" | grep -q "SNAPSHOT" ; then
 	/bin/bash /usr/local/sbin/repoadd.sh
 else
 #echo "repo=releases" >> /tmp/auto/release-$app.txt
-	export repo=releases`
+	export repo=releases
 	export wdir=/data/nexus/storage/$repo/`
 #source /tmp/auto/release-$app.txt
 	echo "The wdir is :$wdir"
