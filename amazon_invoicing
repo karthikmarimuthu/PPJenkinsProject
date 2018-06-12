@@ -1,0 +1,21 @@
+#jenkins Shell
+
+#!/bin/bash
+
+rm -fr /data/Amazon-invoice/file.txt
+echo "FILE_NAME=$FILENAME" >> /data/Amazon-invoice/file.txt
+#Copy the file from repo to prodesb server
+/bin/bash /data/Amazon-invoice/copytoesb.sh
+#Move the file to /tmp/amazon-send-invoice/csv/in
+ssh ubuntu@10.11.12.98 -i /data/jenkins/home/.ssh/setup-keys.pem /bin/bash /home/ubuntu/invdir/mvtoin.sh
+
+#mvtoin.sh
+
+#!/bin/bash
+
+sudo cp /home/ubuntu/invdir/fromrepo/*.csv /tmp/amazon-send-invoice/csv/in/
+sleep 30
+rm -fr /home/ubuntu/invdir/x12/*
+cp -p "`ls -dtr1 /tmp/amazon-send-invoice/invoice/as2/* | tail -1`" /home/ubuntu/invdir/x12/
+scp /home/ubuntu/invdir/x12/*csv* ubuntu@10.11.1.69:/data/Amazon-invoice/x12/
+rm -fr /home/ubuntu/invdir/fromrepo/*
