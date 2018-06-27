@@ -7,6 +7,8 @@ fi
 # Find all files older than one day and delete
 
 find /tmp/auto/ -mtime +1 -exec rm -f {} \;
+#Find and delete all .svn directories
+find . -name ".svn" -exec rm -r "{}" \;
 
 # Find the latest modified file from a directory
 <-- find . -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" "
