@@ -23,3 +23,7 @@ And I missed the part of plural; if you want more then the latest file, just bum
 #Match exact pattern and grep the latest modified file.
 
 find . -type f -printf '%T@ %p\n' | sort -n | grep ".deb$" | cut -f2- -d" " | tail -1
+
+#find pattern and keep only the contents between
+
+sed -n '/ISA/,/IEA/p; /IEA/q' | sed 's/mule-app-accept-amazon-cc-parcel-2.1.0.log-//g' | sed 's/^.*ISA/ISA/'
