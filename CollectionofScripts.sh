@@ -26,4 +26,4 @@ find . -type f -printf '%T@ %p\n' | sort -n | grep ".deb$" | cut -f2- -d" " | ta
 
 #find pattern and keep only the contents between
 
-sed -n '/ISA/,/IEA/p; /IEA/q' | sed 's/mule-app-accept-amazon-cc-parcel-2.1.0.log-//g' | sed 's/^.*ISA/ISA/'
+cat testing.txt | sed -n '/ISA/,/IEA/p; /IEA/q' | sed 's/mule-app-accept-amazon-cc-parcel-2.1.0.log-//g' | sed 's/^.*ISA/ISA/' > success2.txt
